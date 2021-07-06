@@ -1,9 +1,10 @@
 switches = -Wall -O0 -g
 gcc = gcc
-src = cache-measure
+
 
 all:
-	$(gcc) $(switches) $(src).c -o $(src)
+	$(gcc) $(switches) cache-measure.c -o cache-measure
+	$(gcc) $(switches) btrees.c -o btrees
 
 clean:
 	rm -rf *.o *~ #~
