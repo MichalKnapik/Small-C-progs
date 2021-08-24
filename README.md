@@ -1,5 +1,5 @@
 # Small-C-progs
-A collection of small C programs I enjoyed writing.
+A collection of small C programs that illustrate some basic concepts. 
 
 1. cache-measure.c: A program that tries to torture cache levels, following the ideas by Remzi and Andrea C. Arpaci-Dusseau.
    		    Fixes a CPU and makes a torture array that covers NUMPAGES pages of memory and accesses each page LOOPS
@@ -10,3 +10,6 @@ A collection of small C programs I enjoyed writing.
 2. btrees.c:	    A direct implementation of B-trees, for didactic purposes. The program can produce B-trees of arbirtrary sizes
    		    in dot-compatible output. Feel free to use the pictures without attribution. The code is more or less what
 		    you can find in CLRS (with one small fix, I think).
+
+3. ts_queue_oth.c:  An implementation of hand-over-hand locking thread safe queue together with a simple experiment. 
+                    		    
