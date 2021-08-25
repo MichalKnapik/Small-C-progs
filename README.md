@@ -11,5 +11,6 @@ A collection of small C programs that illustrate some basic concepts.
    		    in dot-compatible output. Feel free to use the pictures without attribution. The code is more or less what
 		    you can find in CLRS (with one small fix, I think).
 
-3. ts_queue_oth.c:  An implementation of hand-over-hand locking thread safe queue together with a simple experiment. 
+3. ts_queue_oth.c:  An implementation of hand-over-hand locking thread safe queue together with a simple experiment. For didactic
+   		    purposes.
                     		    
