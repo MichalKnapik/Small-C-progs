@@ -181,6 +181,8 @@ void to_dot(struct bnode* bn) {
   printf("}\n");
 }
 
+#ifndef AS_LIB
+
 int main(int argc, char** argv) {
   // test: insert argv[1] nodes
   if (argc < 2) {
@@ -198,3 +200,5 @@ int main(int argc, char** argv) {
   delete_tree(tree);
   return 0;
 }
+
+#endif

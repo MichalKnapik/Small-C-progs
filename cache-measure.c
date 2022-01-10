@@ -43,6 +43,8 @@ unsigned long long measure_CPU_clock_count() {
     return (((unsigned long long)a) | (((unsigned long long)d) << 32));
 }
 
+#ifndef AS_LIB
+
 int main(int argc, char** argv) {
 
   if(argc < 2) {
@@ -85,3 +87,5 @@ int main(int argc, char** argv) {
 
   return 0;
 }
+
+#endif

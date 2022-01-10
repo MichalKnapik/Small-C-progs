@@ -7,9 +7,7 @@
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include <stdbool.h>
-
-// turn on to see experiment messages
-#define VERBOSE 1
+#include "ts_queue_oth.h"
 
 // A safe-ish malloc.
 void* smalloc(int tsize) {
@@ -21,26 +19,6 @@ void* smalloc(int tsize) {
 
   return n;
 }
-
-// Put your items as a load under a key in this struct.
-typedef struct {
-  int key;
-  void* load;
-} payload;
-
-// This is a node of the thread-safe queue.
-struct node {
-  payload item;
-  struct node* next;
-  pthread_mutex_t lock;  
-};
-
-// This is the thread-safe queue struct;
-typedef struct node node;
-typedef struct {
-  // note: the head is dummy and used only as a guard
-  node* head; 
-} tq;
 
 node* make_node() {
   node* n = smalloc(sizeof(node));
@@ -163,12 +141,6 @@ void* tq_get(tq* tr, int key) {
   return NULL;
 }
 
-typedef struct {
-  tq* tr;
-  int exp_count;
-  int val_bound;
-} experiment_args;
-
 void* experiment(void *arg) {
   // this is the random experiment function passed to each thread
 
@@ -176,8 +148,10 @@ void* experiment(void *arg) {
   tq* t = ea->tr;
   int exp_count = ea->exp_count;
   int val_bound = ea->val_bound;
+  int VERBOSE = ea->verbose;  
   int options = 3;
   int tid = syscall(SYS_gettid);
+
 
   for (int i = 0; i < exp_count; ++i) {
     // do some random operations on the passed tq
@@ -212,6 +186,8 @@ void* experiment(void *arg) {
   return NULL;
 }
 
+#ifndef AS_LIB
+
 int main(int argc, char** argv) {
 
   int seed = 100;
@@ -229,7 +205,7 @@ int main(int argc, char** argv) {
   sscanf(argv[3], "%d", &val_bound);  
   
   tq* tr = make_tq();
-  experiment_args eargs = {tr, exp_count, val_bound};
+  experiment_args eargs = {tr, exp_count, val_bound, 1};
 
   pthread_t* thread_pool = malloc(threads_no*sizeof(pthread_t));
 
@@ -248,3 +224,5 @@ int main(int argc, char** argv) {
   
   return 0;
 }
+
+#endif
