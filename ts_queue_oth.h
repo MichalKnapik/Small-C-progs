@@ -1,5 +1,4 @@
-#ifndef TS_QUEUE_H
-#define TS_QUEUE_H
+#pragma once
 
 #include <stdbool.h>
 
@@ -45,5 +44,3 @@ typedef struct {
 } experiment_args;
 
 void* experiment(void *arg);
-  
-#endif
